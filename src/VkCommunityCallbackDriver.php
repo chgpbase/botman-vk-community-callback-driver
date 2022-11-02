@@ -457,7 +457,9 @@ class VkCommunityCallbackDriver extends HttpDriver {
     public function hasMatchingEvent() {
 
         // Check if VK request
-        $check =    $this->payload->get("secret") == $this->config->get("secret") &&
+       $check = !is_null($this->payload->get("secret")) &&
+            $this->payload->get("secret") == $this->config->get("secret") &&
+            !is_null($this->payload->get("group_id")) &&
             $this->payload->get("group_id") == $this->config->get("group_id");
 
         if (!is_null($this->payload) && $check) {
